@@ -137,17 +137,17 @@ function Logger:BasicInfo(content, ...)
     end
 end
 
-local logPath = 'log.txt'
+local logPath = function() return _C().Level.LevelName .. '.csv' end
 --- Saves the log to the log.txt
 function Logger:LogMessage(message)
-    local fileContent = FileUtils:LoadFile(logPath) or ""
+    local fileContent = FileUtils:LoadFile(logPath()) or ""
     local logMessage = message
-    Ext.IO.SaveFile(FileUtils:BuildAbsoluteFileTargetPath(logPath), fileContent .. logMessage .. "\n")
+    Ext.IO.SaveFile(FileUtils:BuildAbsoluteFileTargetPath(logPath()), fileContent .. logMessage .. "\n")
 end
 
 --- Wipes the log file
 function Logger:ClearLogFile()
-    if FileUtils:LoadFile(logPath) then
-        Ext.IO.SaveFile(FileUtils:BuildAbsoluteFileTargetPath(logPath), "")
+    if FileUtils:LoadFile(logPath()) then
+        Ext.IO.SaveFile(FileUtils:BuildAbsoluteFileTargetPath(logPath()), "")
     end
 end
