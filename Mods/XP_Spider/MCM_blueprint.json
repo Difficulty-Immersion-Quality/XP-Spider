@@ -1,0 +1,723 @@
+{
+	"SchemaVersion": 1,
+	"Optional": true,
+	"Tabs": [
+		{
+			"TabName": "General",
+			"TabDescription": "General settings",
+			"TabId": "general",
+			"Handles": {
+				"NameHandle": "hc18d4c4b444649f2a4599b69f0ad518a90g4",
+				"DescriptionHandle": "h0a2f540d60324c1ea424e17880655b1c7e19"
+			},
+			"Sections": [
+				{
+					"SectionName": "General Mod Behavior",
+					"SectionId": "general-mod-behavior",
+					"Handles": {
+						"NameHandle": "h2bad029164ee46eaa9409eb6dc927eb73de6"
+					},
+					"Settings": [
+						{
+							"Id": "SA_enabled",
+							"Name": "Enable Mod",
+							"Description": "Enables or disables the mod",
+							"Handles": {
+								"NameHandle": "h5c8cebd5dd4a4aaba84c500bc46c48fcf59a",
+								"DescriptionHandle": "h055b4e7efe9b414791aa90fc921eecd668e4"
+							},
+							"Type": "checkbox",
+							"Default": true
+						},
+						{
+							"Id": "SA_show_surface_for_radius_settings",
+							"Name": "Generate An Ash Surface To Display How Large Radius-Based Configs Are When Value Is Saved",
+							"Description": "Some features of this mod use radiuses - enabling this config will generate a short-lived Ash surface below the active character to show how large that radius is. Some radius sizes will change depending on the active character - for example, Metal Equipment Radius will be bigger if the active character has metal equipped. Use turn-based mode to extend the lifetime of the radius",
+							"Handles": {
+								"NameHandle": "h9a835be994824d1789346fabb84aded39e6g",
+								"DescriptionHandle": "h573113eeaff24ae9b824ad6fe355a924c9gg"
+							},
+							"Type": "checkbox",
+							"Default": true
+						},
+						{
+							"Id": "SA_log_level",
+							"Name": "Log level",
+							"Description": "0 = Off, 1 = Error, 2 = Warn, 3 = Info, 4 = Debug, 5 = Trace (Anything higher than Info will only be logged to the log.txt, not the SE console)",
+							"Handles": {
+								"NameHandle": "h7319446924bd42a783ed7d2a9a65f2c2fg63",
+								"DescriptionHandle": "h27b8458694fd4e2eb7aeb8ca7e6d21eb568d"
+							},
+							"Type": "slider_int",
+							"Default": 3,
+							"Options": {
+								"Min": 0,
+								"Max": 5
+							}
+						}
+					]
+				}
+			]
+		},
+		{
+			"TabName": "Rules",
+			"TabId": "rules",
+			"Handles": {
+				"NameHandle": "h5da6af2254f94a45ac836d6905f1c8d19c98",
+				"DescriptionHandle": "h353a00fdee594cae942e2bb1a1fa4cceff05"
+			},
+			"Sections": [
+				{
+					"SectionId": "summons",
+					"SectionName": "Summons",
+					"SectionDescription": "Rules regarding Player Summons",
+					"Handles": {
+						"NameHandle": "h89d8763349d945bcb7887ea71c0efaa5ef2b",
+						"DescriptionHandle": "h7c3f599fa03a4e04afde6b8234149b35470c"
+					},
+					"Options": {
+						"IsCollapsible": true
+					},
+					"Settings": [
+						{
+							"Id": "SA_summons_copy_summoner",
+							"Name": "Summons Copy Their Summoner",
+							"Description": "If enabled, Summons will automatically be considered eligible to join the ambush if their summoner is, and have the same effects applied (e.g. if the summoner's sneak is restored when entering combat, the summon will also be sneaking, even if they weren't before combat) - if disabled, they will be independently evaluated and processed using the same rules and behavior",
+							"Handles": {
+								"NameHandle": "h412fa11bfd57438c86747596d17c3a9702b6",
+								"DescriptionHandle": "hcb7d588012cd407e8c30cc2fd7a5dd9b8073"
+							},
+							"Type": "checkbox",
+							"Default": true
+						}
+					]
+				},
+				{
+					"SectionId": "sneaking",
+					"SectionName": "Sneaking",
+					"SectionDescription": "Controls configurations around Stealth",
+					"Options": {
+						"IsCollapsible": true
+					},
+					"Handles": {
+						"NameHandle": "hb1bb88369ae94b318fec0c68d9e079f3dge7",
+						"DescriptionHandle": "h9a13c55410c0458aa57d56e85163dceadbc7"
+					},
+					"Settings": [
+						{
+							"Id": "SA_sneaking_chars_are_eligible",
+							"Name": "Sneaking Characters Can Join ambush",
+							"Description": "BG3 prevents characters that are sneaking from entering combat - as a workaround, we bring eligible characters out of sneaking, have them enter combat, then have them hide again. Disable this if you don't want sneaking characters to be eligible",
+							"Handles": {
+								"NameHandle": "h06c3c574e4904a82a9945e1c73af93ee7d4e",
+								"DescriptionHandle": "h3cf3d320177447e79d68a6c8ac8f819e0f92"
+							},
+							"Type": "checkbox",
+							"Default": true
+						},
+						{
+							"Id": "SA_sneaking_chars_get_stealth_back",
+							"Name": "Sneaking Characters Retain Stealth During Ambush",
+							"Description": "Gives characters that were sneaking before combat started their 'Sneak' back when entering the ambush",
+							"Handles": {
+								"NameHandle": "h1f5c4ef82f62479b9a1420dfbc14f24egf44",
+								"DescriptionHandle": "h36b2821b51b64b10b4dfab50f8a57d1353f6"
+							},
+							"Type": "checkbox",
+							"Default": true,
+							"VisibleIf": {
+								"Conditions": [
+									{
+										"SettingId": "SA_sneaking_chars_are_eligible",
+										"ExpectedValue": true,
+										"Operator": "=="
+									}
+								]
+							}
+						},
+						{
+							"Id": "SA_hide_sneaking_char_ghost",
+							"Name": "Enemies Don't Know Where To Look For Ambushing Characters",
+							"Description": "Since we add characters to combat _then_ sneak them, BG3 adds a 'ghost' that indicates where a character stealthed, so enemies can look for them there. Enabling this option 'hides' that ghost, effectively making it so enemies don't know they're being ambushed",
+							"Handles": {
+								"NameHandle": "h87a05633f1fd4977af72671725d932774242",
+								"DescriptionHandle": "h507d0ae7cfe543dbb7ebb4123cf4a84abgge"
+							},
+							"Type": "checkbox",
+							"Default": true,
+							"VisibleIf": {
+								"Conditions": [
+									{
+										"SettingId": "SA_sneaking_chars_are_eligible",
+										"ExpectedValue": true,
+										"Operator": "=="
+									},
+									{
+										"SettingId": "SA_sneaking_chars_get_stealth_back",
+										"ExpectedValue": true,
+										"Operator": "=="
+									}
+								]
+							}
+						},
+						{
+							"Id": "SA_sneaking_char_roll_stealth",
+							"Name": "Ambushing Characters Roll Passive Stealth Skill Check Against Each Enemies' Perception",
+							"Description": "Each character that is sneaking during the ambush will have to make this check to keep their 'ghost' hidden - if they fail, they remain stealthed, but the enemy knows to look at their location (whether or not they actually do is up to the AI)",
+							"Handles": {
+								"NameHandle": "ha1a64b7769144a01b30505996c655224baa9",
+								"DescriptionHandle": "heb8c356b0e0c49b9b7316f1ddc11d93fd8a5"
+							},
+							"Type": "checkbox",
+							"Default": true,
+							"VisibleIf": {
+								"Conditions": [
+									{
+										"SettingId": "SA_sneaking_chars_are_eligible",
+										"ExpectedValue": true,
+										"Operator": "=="
+									},
+									{
+										"SettingId": "SA_sneaking_chars_get_stealth_back",
+										"ExpectedValue": true,
+										"Operator": "=="
+									},
+									{
+										"SettingId": "SA_hide_sneaking_char_ghost",
+										"ExpectedValue": true,
+										"Operator": "=="
+									}
+								]
+							}
+						},
+						{
+							"Id": "SA_sneaking_char_roll_stealth_with_advantage",
+							"Name": "Ambushing Characters Roll Their Initial Passive Stealth Check With Advantage",
+							"Description": "Only applies to the skill check initiated by this mod - if the character already has disadvantage (e.g. wearing heavy armor), they will roll without dis/advantage",
+							"Handles": {
+								"NameHandle": "h2070676865bd4f51a578de226461723261a8",
+								"DescriptionHandle": "hb4b4e0883aa042559c3a02b5fa9ad43850c1"
+							},
+							"Type": "checkbox",
+							"Default": true,
+							"VisibleIf": {
+								"Conditions": [
+									{
+										"SettingId": "SA_sneaking_chars_are_eligible",
+										"ExpectedValue": true,
+										"Operator": "=="
+									},
+									{
+										"SettingId": "SA_sneaking_chars_get_stealth_back",
+										"ExpectedValue": true,
+										"Operator": "=="
+									},
+									{
+										"SettingId": "SA_hide_sneaking_char_ghost",
+										"ExpectedValue": true,
+										"Operator": "=="
+									},
+									{
+										"SettingId": "SA_sneaking_char_roll_stealth",
+										"ExpectedValue": true,
+										"Operator": "=="
+									}
+								]
+							}
+						},
+						{
+							"Id": "SA_sneaking_chars_can_trip",
+							"Name": "Ambushing Characters Can Trip",
+							"Description": "If a sneaking character critically fails during their initial Stealth check, they will be knocked prone and lose their sneak status",
+							"Handles": {
+								"NameHandle": "h50a2f3e1579f4e9d8bf794d7f797c3e2gfd2",
+								"DescriptionHandle": "h46c8d4304532492eb51cdf5268bda1ce3fd0"
+							},
+							"Type": "checkbox",
+							"Default": true,
+							"VisibleIf": {
+								"Conditions": [
+									{
+										"SettingId": "SA_sneaking_chars_are_eligible",
+										"ExpectedValue": true,
+										"Operator": "=="
+									},
+									{
+										"SettingId": "SA_sneaking_chars_get_stealth_back",
+										"ExpectedValue": true,
+										"Operator": "=="
+									},
+									{
+										"SettingId": "SA_hide_sneaking_char_ghost",
+										"ExpectedValue": true,
+										"Operator": "=="
+									},
+									{
+										"SettingId": "SA_sneaking_char_roll_stealth",
+										"ExpectedValue": true,
+										"Operator": "=="
+									}
+								]
+							}
+						}
+					]
+				}
+			]
+		},
+		{
+			"TabId": "stealh_combat",
+			"TabName": "Stealth Combat",
+			"TabDescription": "Configures behavior around performing actions while that influence Combat sneaking",
+			"Handles": {
+				"NameHandle": "ha18a08d7acde425e91a8d7e53114799c9380",
+				"DescriptionHandle": "hc816a6f7c87543cca37ea05a39272d990ef6"
+			},
+			"Sections": [
+				{
+					"SectionId": "shared",
+					"SectionName": "Combat Agnostic",
+					"SectionDescription": "Configs that apply when in and out of combat",
+					"Handles": {
+						"NameHandle": "he85eb656d517493cafd1c02a164fecdf4714",
+						"DescriptionHandle": "he77fb0dde4564ee88bb60b6719fc18b40743"
+					},
+					"Options": {
+						"IsCollapsible": true
+					},
+					"Settings": [
+						{
+							"Id": "SA_stealth_actions_requires_stealth_proficiency",
+							"Name": "Only Characters With Stealth Proficiency Are Eligible",
+							"Description": "If disabled, all characters are eligible to retain their SNEAKING after performing a non-Stealth action, adhering to the rules of this mod",
+							"Handles": {
+								"NameHandle": "hc8e3eba89959438ab4921a9567ab74f0b246",
+								"DescriptionHandle": "h52e128ee02544f528bd280a8d037b6663gfb"
+							},
+							"Type": "checkbox",
+							"Default": true
+						}
+					]
+				},
+				{
+					"SectionId": "out_of_combat",
+					"SectionName": "Out of Combat",
+					"SectionDescription": "Configures behavior when sneaking and not already in combat",
+					"Handles": {
+						"NameHandle": "h458d46197b0f4343bc3042bc4004f24463f0",
+						"DescriptionHandle": "h17fa06b4c93b4c82a7095f894bb4fd437c35"
+					},
+					"Options": {
+						"IsCollapsible": true
+					},
+					"Settings": [
+						{
+							"Id": "SA_enable_out_of_combat_action_behavior",
+							"Name": "Enable Out Of Combat Behavior",
+							"Description": "Disable this if you just want vanilla behavior to occur when out of combat (always removing SNEAK unless you cast a spell with a STEALTH flag)",
+							"Handles": {
+								"NameHandle": "h3995ece79eff4c58ae694df5f0afca556f26",
+								"DescriptionHandle": "hef5781ca3efb4fa2a98e7d21769ac54721c9"
+							},
+							"Type": "checkbox",
+							"Default": true
+						},
+						{
+							"Id": "SA_delay_on_applying_sneak_out_of_combat",
+							"Name": "How Long To Delay Reapplying Sneak On Hostile Actions (In Seconds)",
+							"Description": "When performing an action without a specific STEALTH flag (basically any weapon attack and casting any spell except Minor Illusion or when NOT using Subtle Metamagic), the game engine automatically removes the sneak status - to get around that, this mod automatically reapplys the SNEAKING condition (following Proficiency rules if enabled). To ensure combat begins appropriately when casting spells/making weapon attacks that can affect enemies, this setting delays the reapplication of SNEAK until combat either begins or the specific length of time passes to prevent the attacked character seeking you out in real time. Due to varied spell animation lengths, projectile travel distance, enemy behavior processing, etc, there is no single 'perfect' number for this. If you perform an action that can't affect enemies (e.g. casting Bless), SNEAK will be reapplied without a delay.",
+							"Handles": {
+								"NameHandle": "he13c02018d044fea915c6c023708821a7b43",
+								"DescriptionHandle": "h1c9e3fae536448fea9c4d16854bf0ce3079f"
+							},
+							"Type": "slider_float",
+							"Default": 2.0,
+							"Options": {
+								"Max": 5.0,
+								"Min": 0.0
+							},
+							"VisibleIf": {
+								"Conditions": [
+									{
+										"SettingId": "SA_enable_out_of_combat_action_behavior",
+										"ExpectedValue": true,
+										"Operator": "=="
+									}
+								]
+							}
+						}
+					]
+				},
+				{
+					"SectionId": "in_combat",
+					"SectionName": "In Combat",
+					"SectionDescription": "When performing a non-stealth action while in Combat and Sneaking, you roll a Stealth check against each enemy that can spot you and has Line-Of-Sight. If you pass these checks, your 'ghost' (which represents where enemies think you are) gets randomly placed within a defined horizontal (not vertical) distance of you; if you fail, your ghost stays with you and enemies look directly at your position, forcing you to make a Hide check if you're within sight. This distance shrinks on each subsequent action, and grows based on your Obscurity Level. If you're within 9 meters of any given enemy when this check is performed, they'll turn to look at your current position, forcing you to make an additional Hide check. 9m is the Distant Metamagic distance for touch spells, so that's being used as a compromise between realism and game mechanics.",
+					"Handles": {
+						"NameHandle": "hefcef06877c9403b9289e83619c571b2ff9g",
+						"DescriptionHandle": "hf82cd86d337c4256b5fbc9c1c5988dfc57f7"
+					},
+					"Options": {
+						"IsCollapsible": true
+					},
+					"Settings": [
+						{
+							"Id": "SA_enable_in_combat_behavior",
+							"Name": "Enable In-Combat Behavior",
+							"Description": "Disable this if you just want vanilla behavior to occur when in combat (always removing SNEAK unless you cast a spell with a STEALTH flag)",
+							"Handles": {
+								"NameHandle": "h255457fd0541434ea2c0c6b87e0d22e97ef8",
+								"DescriptionHandle": "hf5354a8fe3874e0d97114c595b267e937a28"
+							},
+							"Type": "checkbox",
+							"Default": true
+						},
+						{
+							"Id": "SA_max_radius_for_ghost_on_action",
+							"Name": "Maximum Base Radius For Randomized Ghost Position On Action",
+							"Description": "The maximum distance your Ghost can be placed from you without considering number of actions performed, Obscurity level, Stealth Proficiency/Expertise, etc",
+							"Handles": {
+								"NameHandle": "h26f8791b66c04affa315083c5d53cbcf7ab5",
+								"DescriptionHandle": "hd2d9b64f7b4d443cabf02bb024fd38e615c9"
+							},
+							"Type": "slider_int",
+							"Options": {
+								"Max": 30,
+								"Min": 1
+							},
+							"Default": 10,
+							"VisibleIf": {
+								"Conditions": [
+									{
+										"SettingId": "SA_enable_in_combat_behavior",
+										"ExpectedValue": true,
+										"Operator": "=="
+									}
+								]
+							}
+						},
+						{
+							"Id": "SA_ghost_radius_obscurity_multiplier",
+							"Name": "Obscurity Level Multiplier",
+							"Description": "Calculation is (randomized ghost distance + (obscurity level * this multiplier)), with lightly obscured = 1 and heavily obscured = 2. Ash surface generated when changing this value will show (max radius + (obscurity level * this multiplier)) to show potential max with current obscurity. Takes enemy Darkvision (reducing obscurity level by one) and Blindsight (negating entirely) into account.",
+							"Handles": {
+								"NameHandle": "hb8cfc08da681411e9b2e1e6b64aa982aa37f",
+								"DescriptionHandle": "h5238157947e14197b2dd9a51426a60838aa9"
+							},
+							"Type": "float",
+							"Default": 2.0,
+							"VisibleIf": {
+								"Conditions": [
+									{
+										"SettingId": "SA_enable_in_combat_behavior",
+										"ExpectedValue": true,
+										"Operator": "=="
+									}
+								]
+							}
+						},
+						{
+							"Id": "SA_action_counter_divisor",
+							"Name": "Action Counter Divisor",
+							"Description": "Calculation is (randomized ghost distance with obscurity / (number of consecutive actions while sneaking / this divisor)), ensuring that the enemy is better able to figure out where you are after each action (if the action does not have the STEALTH flag). (number of consecutive actions while sneaking / this divisor) will round up to 1 if less than 1. Count resets if sneak is removed intentionally or by another mechanic, like using the Hide skill or being seen by an NPC. Generated Ash Surface will display (max radius with obscurity / (2 / this divisor)), emulating 2 consecutive actions",
+							"Handles": {
+								"NameHandle": "h81a3b114db414d299c0fc05efab050070162",
+								"DescriptionHandle": "h013d3d684c0c477eac57c7223ed27e50d9d8"
+							},
+							"Type": "slider_float",
+							"Default": 1.5,
+							"Options": {
+								"Max": 5.0,
+								"Min": 1.0
+							},
+							"VisibleIf": {
+								"Conditions": [
+									{
+										"SettingId": "SA_enable_in_combat_behavior",
+										"ExpectedValue": true,
+										"Operator": "=="
+									}
+								]
+							}
+						}
+					]
+				}
+			]
+		},
+		{
+			"TabId": "extras",
+			"TabName": "Extras",
+			"TabDescription": "Contains extra behavior that complement Ambushing mechanics",
+			"Handles": {
+				"NameHandle": "h015f09eadb734968ba0e930056bf87ac54ff",
+				"DescriptionHandle": "hdb815a8889554109a1b4481e575d770f432c"
+			},
+			"Sections": [
+				{
+					"SectionId": "prone",
+					"SectionName": "When Characters With Metal Equipment Are Knocked Prone",
+					"SectionDescription": "Optional features to trigger when a character wearing metal equipment (weapon, shield, armor) is knocked prone (e.g. when tripping during an ambush, or slipping on ice)",
+					"Handles": {
+						"NameHandle": "h23c514d5cc63423f87b3b4b173e82c0bdcd3",
+						"DescriptionHandle": "h0466f68763724a5293a5730928e87dfb38dc"
+					},
+					"Options": {
+						"IsCollapsible": true
+					},
+					"Settings": [
+						{
+							"Id": "SA_metal_chars_attract_enemies_when_knocked_prone",
+							"Name": "Characters With Metal Equipment Attract Characters Within Radius",
+							"Description": "Characters must: be able to fight, be able to move to your location, and not be in combat already",
+							"Handles": {
+								"NameHandle": "h413375e1c9ae4683a51809a7ff6793cf18ef",
+								"DescriptionHandle": "hf160e6f7489f41d9990ec198b4614c295dc6"
+							},
+							"Type": "checkbox",
+							"Default": true
+						},
+						{
+							"Id": "SA_metal_chars_attract_context_condition",
+							"Name": "When Does This Apply?",
+							"Handles": {
+								"NameHandle": "h0870b7f8328e4e73a3259acce8cf8ef5638c",
+								"ChoicesHandles": [
+									"h54614a1bb4f84c79911793b6d0f6466254d8",
+									"he840c733509a4358878e9f57d74b6e8d4774"
+								]
+							},
+							"Type": "radio",
+							"Options": {
+								"Choices": [
+									"Always",
+									"Only In Combat"
+								]
+							},
+							"Default": "Only In Combat",
+							"VisibleIf": {
+								"Conditions": [
+									{
+										"SettingId": "SA_metal_chars_attract_enemies_when_knocked_prone",
+										"ExpectedValue": true,
+										"Operator": "=="
+									}
+								]
+							}
+						},
+						{
+							"Id": "SA_metal_chars_attract_type_condition",
+							"Name": "Who Can Be Attracted To The Noise?",
+							"Handles": {
+								"NameHandle": "h1d51e6d6c9ed47859562924ac0c2cbdde475",
+								"ChoicesHandles": [
+									"h979141588ed349f699ed3f234b2f4a8efef5",
+									"hec43f582413d41388788d91c87f3aef57d1e",
+									"h552a3874acdf4bdaa3f100134a032e996ea2"
+								]
+							},
+							"Type": "radio",
+							"Options": {
+								"Choices": [
+									"All",
+									"Enemies",
+									"Allies"
+								]
+							},
+							"Default": "All",
+							"VisibleIf": {
+								"Conditions": [
+									{
+										"SettingId": "SA_metal_chars_attract_enemies_when_knocked_prone",
+										"ExpectedValue": true,
+										"Operator": "=="
+									}
+								]
+							}
+						},
+						{
+							"Id": "SA_metal_chars_applies_on_condition",
+							"Name": "Who Does This Behavior Trigger For?",
+							"Handles": {
+								"NameHandle": "h8544d8667c684dbab484d88d9ed2f65c5a7d",
+								"ChoicesHandles": [
+									"h979141588ed349f699ed3f234b2f4a8efef5",
+									"h9cf4dd3bba8b4a17878c023942a3f34c3a6f",
+									"hdfb30c4ea3a547c8a9061c82509dd836974f",
+									"hec43f582413d41388788d91c87f3aef57d1e"
+								]
+							},
+							"Type": "radio",
+							"Options": {
+								"Choices": [
+									"All",
+									"Party Members",
+									"Party Members and Allies",
+									"Enemies"
+								]
+							},
+							"Default": "Party Members",
+							"VisibleIf": {
+								"Conditions": [
+									{
+										"SettingId": "SA_metal_chars_attract_enemies_when_knocked_prone",
+										"ExpectedValue": true,
+										"Operator": "=="
+									}
+								]
+							}
+						},
+						{
+							"Id": "SA_metal_equipment_base_radius",
+							"Name": "Base Radius",
+							"Description": "How large the base radius is - essentially, if this effect were to occur with no metal equipped, how large would it be? Default is 5",
+							"Handles": {
+								"NameHandle": "h0ef41333337e43b2bfe61d014c0d92f22980",
+								"DescriptionHandle": "h8d272f68a83a41f4b9bbbb7b96834640f586"
+							},
+							"Type": "float",
+							"Default": 5,
+							"VisibleIf": {
+								"Conditions": [
+									{
+										"SettingId": "SA_metal_chars_attract_enemies_when_knocked_prone",
+										"ExpectedValue": true,
+										"Operator": "=="
+									}
+								]
+							}
+						},
+						{
+							"Id": "SA_metal_equipment_count_weight",
+							"Name": "Weight of Each Equipped Metal Item",
+							"Description": "How much each piece of metal equipment expands the base radius - calculation is (Base Radius * (Weight * Number of Pieces Equipped)). For example, if your base radius is 5, this value is 1, and you have 2 pieces of metal gear equipped, that's (5 * (1 * 2)) = 10. Default is 1",
+							"Handles": {
+								"NameHandle": "h6b7cc98692df45329a2b5112a7956dc83323",
+								"DescriptionHandle": "h49614c2eb2a5402c9d17009f2043377634g6"
+							},
+							"Type": "float",
+							"Default": 1,
+							"VisibleIf": {
+								"Conditions": [
+									{
+										"SettingId": "SA_metal_chars_attract_enemies_when_knocked_prone",
+										"ExpectedValue": true,
+										"Operator": "=="
+									}
+								]
+							}
+						}
+					]
+				},
+				{
+					"SectionId": "surprise",
+					"SectionName": "Surprise",
+					"SectionDescription": "Configure behavior around the Surprise Mechanic",
+					"Handles": {
+						"NameHandle": "h1ed462f7da3f4afa81806ef2633f5551c86c",
+						"DescriptionHandle": "h89410b5953234ebe9c7b99f44ca5b9db5834"
+					},
+					"Options": {
+						"IsCollapsible": true
+					},
+					"Settings": [
+						{
+							"Id": "SA_surprise_enabled",
+							"Name": "Enable Sensible Ambush's Conditions For Triggering Surprise",
+							"Description": "Sensible Ambush will trigger Surprise against a group if anything is done to them from stealth - this includes any attack or spell, including those not supported by the game, like grenades. Disable this if you just want vanilla behavior - below options will still apply either way",
+							"Handles": {
+								"NameHandle": "heb246fdfdf1744a08fa9ce95fba5c09e03e6",
+								"DescriptionHandle": "h8182f9ab420e4348b0b6d96e440df7cb26cd"
+							},
+							"Type": "checkbox",
+							"Default": true
+						},
+						{
+							"Id": "SA_surprise_applies_to_condition",
+							"Name": "Who Can Be Surprised?",
+							"Description": "If a group is excluded (i.e. you only select Enemies, so Party Members and Allies are excluded), they will have the Surprise condition automatically removed when applied (We can't prevent the base game from applying it in the first place, we can only remove it for free)",
+							"Handles": {
+								"NameHandle": "h6783daa44ee54aa0a9e90585b44fe6d9022g",
+								"DescriptionHandle": "h48bd847b96c746f195f28e2d3ff1b704c5c3",
+								"ChoicesHandles": [
+									"h979141588ed349f699ed3f234b2f4a8efef5",
+									"h9cf4dd3bba8b4a17878c023942a3f34c3a6f",
+									"hdfb30c4ea3a547c8a9061c82509dd836974f",
+									"hec43f582413d41388788d91c87f3aef57d1e",
+									"h7eb270a054fe440080ce8a1f664135da3ade"
+								]
+							},
+							"Type": "radio",
+							"Options": {
+								"Choices": [
+									"All",
+									"Party Members",
+									"Party Members and Allies",
+									"Enemies",
+									"Nobody"
+								]
+							},
+							"Default": "All"
+						},
+						{
+							"Id": "SA_resist_surprise_ability",
+							"Name": "What Ability Is Used To Resist Surprise?",
+							"Description": "Dictates the type of Saving Throw - if 'None' is selected, the Surprise Status will follow vanilla rules",
+							"Type": "radio",
+							"Options": {
+								"Choices": [
+									"Wisdom",
+									"Constitution",
+									"Intelligence",
+									"None"
+								]
+							},
+							"Default": "Wisdom",
+							"Handles": {
+								"NameHandle": "h732291d09eeb48dca8396a91a8686f3434c3",
+								"DescriptionHandle": "hbb8d63bb7e1c44b0ab1811a2efa89c907149",
+								"ChoicesHandles": [
+									"h085741bbbd76439f9e0e9acf63b62b59acd3",
+									"h5fdeb31bb2c14c448f57c866b2f25e5471g6",
+									"h30e27f6c43ac4a83902d15191975725ceed8",
+									"h4a5bd083bf284046bbf40c1c0a4844878c79"
+								]
+							},
+							"VisibleIf": {
+								"Conditions": [
+									{
+										"SettingId": "SA_surprise_applies_to_condition",
+										"ExpectedValue": "Nobody",
+										"Operator": "!="
+									}
+								]
+							}
+						},
+						{
+							"Id": "SA_resist_surprise_dc",
+							"Name": "What's the DC on the Saving Throw for Surprise?",
+							"Description": "Uses the Ability/Skill selected above",
+							"Type": "drag_int",
+							"Options": {
+								"Min": 1,
+								"Max": 30
+							},
+							"Default": 20,
+							"VisibleIf": {
+								"Conditions": [
+									{
+										"SettingId": "SA_surprise_applies_to_condition",
+										"ExpectedValue": "Nobody",
+										"Operator": "!="
+									},
+									{
+										"SettingId": "SA_resist_surprise_ability",
+										"ExpectedValue": "None",
+										"Operator": "!="
+									}
+								]
+							}
+						}
+					]
+				}
+			]
+		}
+	]
+}
